@@ -14,5 +14,7 @@ namespace Infrastructure.Data
         }
 
         public DbSet<Feature> Features { get; set; }
+        public DbSet<Project> Project { get; set; }
+        public DbSet<ResourceType> ResourceTypes { get; set; }
     }
 }

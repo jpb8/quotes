@@ -7,6 +7,7 @@ using Infrastructure.Data;
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using Core.Interfaces;
 
 namespace API.Controllers
 {
@@ -15,16 +16,17 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class FeaturesController : ControllerBase
     {
-        private readonly StoreContext _context;
-        public FeaturesController(StoreContext context)
+        private readonly IFeatureRepository _repo;
+
+        public FeaturesController(IFeatureRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Feature>>> GetFeatures()
         {
-            var features = await _context.Features.ToListAsync();
+            var features = await _repo.GetFeaturesAsync();
 
             return Ok(features);
         }
@@ -32,7 +34,13 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Feature>> GetFeature(int id)
         {
-            return  await _context.Features.FindAsync(id);
+            return  await _repo.GetFeatureByIdAsync(id);
+        }
+
+        [HttpGet("ResourceTypes")]
+        public async Task<ActionResult<IReadOnlyList<ResourceType>>> GetResourceTypes(int id)
+        {
+            return Ok(await _repo.GetResourceTypesAsync());
         }
 
     }
