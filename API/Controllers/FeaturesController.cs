@@ -8,6 +8,9 @@ using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 using Core.Interfaces;
+using Core.Specifications;
+using API.Dtos;
+using AutoMapper;
 
 namespace API.Controllers
 {
@@ -16,31 +19,44 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class FeaturesController : ControllerBase
     {
-        private readonly IFeatureRepository _repo;
+        private readonly IGenericRepository<Feature> _featuresRepo;
+        private readonly IGenericRepository<ResourceType> _resourceTypeRepo;
 
-        public FeaturesController(IFeatureRepository repo)
+        public IMapper _mapper;
+
+        public FeaturesController(
+            IGenericRepository<Feature> featuresRepo, 
+            IGenericRepository<ResourceType> resourceTypeRepo,
+            IMapper mapper
+            )
         {
-            _repo = repo;
+            _featuresRepo = featuresRepo;
+            _resourceTypeRepo = resourceTypeRepo;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Feature>>> GetFeatures()
+        public async Task<ActionResult<IReadOnlyList<FeatureToReturnDto>>> GetFeatures()
         {
-            var features = await _repo.GetFeaturesAsync();
+            var spec = new FeaturesWithResourceTypeAndProjecSpecification();
 
-            return Ok(features);
+            var features = await _featuresRepo.ListAsync(spec);
+
+            return Ok(_mapper.Map<IReadOnlyList<Feature>, IReadOnlyList<FeatureToReturnDto>>(features));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Feature>> GetFeature(int id)
+        public async Task<ActionResult<FeatureToReturnDto>> GetFeature(int id)
         {
-            return  await _repo.GetFeatureByIdAsync(id);
+            var spec = new FeaturesWithResourceTypeAndProjecSpecification(id);
+            var feature = await _featuresRepo.GetEntityWithSpec(spec);
+            return _mapper.Map<Feature, FeatureToReturnDto>(feature);
         }
 
         [HttpGet("ResourceTypes")]
         public async Task<ActionResult<IReadOnlyList<ResourceType>>> GetResourceTypes(int id)
         {
-            return Ok(await _repo.GetResourceTypesAsync());
+            return Ok(await _resourceTypeRepo.ListAllAsync());
         }
 
     }
