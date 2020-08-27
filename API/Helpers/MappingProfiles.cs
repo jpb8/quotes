@@ -13,8 +13,7 @@ namespace API.Helpers
         public MappingProfiles()
         {
             CreateMap<Feature, FeatureToReturnDto>()
-                .ForMember(d => d.Project, o => o.MapFrom(s => s.Project.Name))
-                .ForMember(d => d.ResourceType, o => o.MapFrom(s => s.ResourceType.Name));
+                .ForMember(d => d.Project, o => o.MapFrom(s => s.Project.Name));
         }
         
     }

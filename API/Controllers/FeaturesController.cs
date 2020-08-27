@@ -14,10 +14,7 @@ using AutoMapper;
 
 namespace API.Controllers
 {
-
-    [ApiController]
-    [Route("api/[controller]")]
-    public class FeaturesController : ControllerBase
+    public class FeaturesController : BaseApiController
     {
         private readonly IGenericRepository<Feature> _featuresRepo;
         private readonly IGenericRepository<ResourceType> _resourceTypeRepo;

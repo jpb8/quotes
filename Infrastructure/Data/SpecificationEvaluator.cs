@@ -1,6 +1,8 @@
 ﻿using Core.Entities;
 using Core.Specifications;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +24,18 @@ namespace Infrastructure.Data
                 query = query.Where(spec.Criteria);
             }
 
-            query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
-
+            foreach (BaseExpression<TEntity> include in spec.Includes)
+            {
+                if (include.IncludeType == "Include")
+                {
+                    query = query.Include(include.SpecExpression);
+                } 
+                else if (include.IncludeType == "IncludeString")
+                {
+                    query = query.Include(include.SpecExpressionString);
+                }
+            }
+            
             return query;
         }
     }

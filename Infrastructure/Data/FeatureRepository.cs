@@ -21,7 +21,6 @@ namespace Infrastructure.Data
         public async Task<Feature> GetFeatureByIdAsync(int id)
         {
             return await _context.Features
-                .Include(p => p.ResourceType)
                 .Include(p => p.Project)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
@@ -29,7 +28,6 @@ namespace Infrastructure.Data
         public async Task<IReadOnlyList<Feature>> GetFeaturesAsync()
         {
             return await _context.Features
-                .Include(p => p.ResourceType)
                 .Include(p => p.Project)
                 .ToListAsync();
         }
