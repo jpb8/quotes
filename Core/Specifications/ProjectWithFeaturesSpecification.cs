@@ -17,5 +17,12 @@ namespace Core.Specifications
             AddInclude(includeUserStories);
             AddInclude(includeResourceType);
         }
+
+        public ProjectFullDataSpecification()
+        {
+            AddInclude(includeFeatures);
+            AddInclude(includeUserStories);
+            AddInclude(includeResourceType);
+        }
     }
 }

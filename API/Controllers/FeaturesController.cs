@@ -33,9 +33,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<FeatureToReturnDto>>> GetFeatures()
+        public async Task<ActionResult<IReadOnlyList<FeatureToReturnDto>>> GetFeatures(string sort, int? projectId, string? search)
         {
-            var spec = new FeaturesWithResourceTypeAndProjecSpecification();
+            var spec = new FeaturesWithResourceTypeAndProjecSpecification(sort, projectId, search);
 
             var features = await _featuresRepo.ListAsync(spec);
 
