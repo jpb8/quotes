@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Dtos;
 using API.Errors;
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -16,17 +18,32 @@ namespace API.Controllers
         private readonly IGenericRepository<Project> _projectRepo;
         private readonly IGenericRepository<Feature> _featuresRepo;
 
-        public ProjectsController(IGenericRepository<Project> projectRepo, IGenericRepository<Feature> featuresRepo)
+        public IMapper _mapper;
+
+        public ProjectsController(
+            IGenericRepository<Project> projectRepo, 
+            IGenericRepository<Feature> featuresRepo,
+            IMapper mapper
+            )
         {
             _projectRepo = projectRepo;
             _featuresRepo = featuresRepo;
+            _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("detailed")]
         public async Task<ActionResult<IReadOnlyList<Project>>> GetProjects()
         {
             var spec = new ProjectFullDataSpecification();
             return Ok(await _projectRepo.ListAsync(spec));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyList<Project>>> GetProjectList(string sort, string? search)
+        {
+            var spec = new ProjectListSpecification(sort, search);
+            var projects = await _projectRepo.ListAsync(spec);
+            return Ok(_mapper.Map<IReadOnlyList<Project>, IReadOnlyList<ProjectListDto>>(projects));
         }
 
         [HttpGet("{id}")]

@@ -7,7 +7,7 @@ namespace Core.Entities
     public class UserStory : BaseEntity
     {
         public string Description { get; set; }
-        public string Devision { get; set; }
+        public string Division { get; set; }
         public string ServiceDiscipline { get; set; }
         public decimal Discovery { get; set; }
         public decimal Design { get; set; }

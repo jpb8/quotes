@@ -14,6 +14,9 @@ namespace API.Helpers
         {
             CreateMap<Feature, FeatureToReturnDto>()
                 .ForMember(d => d.Project, o => o.MapFrom(s => s.Project.Name));
+
+            CreateMap<Project, ProjectListDto>()
+                .ForMember(d => d.Features, o => o.MapFrom(s => s.Features.Count));
         }
         
     }
