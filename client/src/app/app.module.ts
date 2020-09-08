@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { QuotesModule } from './quotes/quotes.module';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { QuotesModule } from './quotes/quotes.module';
     HttpClientModule,
     CoreModule,
     SharedModule,
-    QuotesModule
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
