@@ -6,7 +6,7 @@ import { QuoteDetailsComponent } from './quote-details/quote-details.component';
 
 const routes: Routes = [
   {path: '', component: QuotesComponent},
-  {path: '/:id', component: QuoteDetailsComponent}
+  {path: ':id', component: QuoteDetailsComponent, data: {breadcrumb: {alias: 'quoteDetails'}}}
 ];
 
 @NgModule({
