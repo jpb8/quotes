@@ -1,0 +1,86 @@
+<div *ngIf="(builder$ | async) as builder">
+    <h2>Quote In Progress</h2>
+    <button class="btn btn-sm" (click)="deleteBuilder(builder.id)">Delete Builder</button>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th>Task Type</th>
+                <th>Feature</th>
+                <th>User Story</th>
+                <th>Discovery</th>
+                <th>Design</th>
+                <th>Implementation</th>
+                <th>Test/Review</th>
+                <th>Total</th>
+                <th>Service Disciplines</th>
+                <th>Division</th>
+                <th>Scope</th>
+                <th>Milestone</th>
+                <th>Resouce Type</th>
+                <th>Notes</th>
+            </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let feature of builder.features">
+                    <tr>
+                        <td>Feature</td>
+                        <td>{{feature.description}}</td>
+                        <td>{{feature.id}}</td>
+                        <td style="font-weight:bold">{{feature.discoveryTotal}}</td>
+                        <td style="font-weight:bold">{{feature.designTotal}}</td>
+                        <td style="font-weight:bold">{{feature.implementationTotal}}</td>
+                        <td style="font-weight:bold">{{feature.testTotal}}</td>
+                        <td style="font-weight:bold">{{feature.discoveryTotal + feature.designTotal + feature.implementationTotal + feature.testTotal}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{feature.mileStone}}</td>
+                        <th></th>
+                        <th>
+                            <button class="btn btn-primary btn-sm" (click)="deleteFeature(feature)">
+                                Delete
+                            </button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="let story of feature.userStories">
+                        <td>User Story</td>
+                        <td></td>
+                        <td>{{story.description}}</td>
+                        <td>{{story.discovery}}</td>
+                        <td>{{story.design}}</td>
+                        <td>{{story.implementation}}</td>
+                        <td>{{story.test}}</td>
+                        <td>{{story.discovery + story.design + story.implementation + story.test}}</td>
+                        <td>{{story.serviceDiscipline}}</td>
+                        <td>{{story.division}}</td>
+                        <td>In Scope</td>
+                        <td>{{feature.mileStone}}</td>
+                        <td>{{story.resourceType}}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" (click)="deleteUserStory(feature, story)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Add UserStory</td>
+                        <td><button>Add</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

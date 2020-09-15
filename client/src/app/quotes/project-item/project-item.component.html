@@ -35,7 +35,7 @@
                     <td></td>
                     <td>{{feature.mileStone}}</td>
                     <th></th>
-                    <th></th>
+                    <th><button (click)="addFeatureToBuilder(feature)">Add</button></th>
                 </tr>
                 <tr *ngFor="let story of feature.userStories">
                     <td>User Story</td>

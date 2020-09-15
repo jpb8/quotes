@@ -12,6 +12,8 @@ const routes: Routes = [
   {path: 'not-found', component: NotFoundComponent, data: {breadcrumb: 'Not Found'}},
   {path: 'quotes', loadChildren: () => import('./quotes/quotes.module').then(mod => mod.QuotesModule),
   data: {breadcrumb: 'Quote'}},
+  {path: 'builder', loadChildren: () => import('./builder/builder.module').then(mod => mod.BuilderModule),
+  data: {breadcrumb: 'Builder'}},
   {path: '**', redirectTo: 'not-found', pathMatch: 'full'}
 ];
 

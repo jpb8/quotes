@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BuilderService } from './builder/builder.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'quotes';
 
-  constructor() {}
+  constructor(private builderService: BuilderService) {}
 
   ngOnInit(): void {
+    const builderId = localStorage.getItem('builder_id');
+    if (builderId) {
+      this.builderService.getBuilder(builderId).subscribe(() => {
+        console.log('Retreaved Builder');
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
 }

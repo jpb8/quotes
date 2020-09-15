@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IProject } from 'src/app/shared/models/project';
+import { IFeature, IProject } from 'src/app/shared/models/project';
+import { BuilderService } from 'src/app/builder/builder.service';
 
 @Component({
   selector: 'app-project-item',
@@ -9,9 +10,13 @@ import { IProject } from 'src/app/shared/models/project';
 export class ProjectItemComponent implements OnInit {
   @Input() project: IProject;
 
-  constructor() { }
+  constructor(private builderService: BuilderService) { }
 
   ngOnInit(): void {
+  }
+
+  addFeatureToBuilder(feature: IFeature) {
+    this.builderService.addFeatureToBuilder(feature);
   }
 
 }
