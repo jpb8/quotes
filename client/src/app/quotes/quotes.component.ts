@@ -22,7 +22,7 @@ export class QuotesComponent implements OnInit {
     this.getProjectList();
   }
 
-  getProjects() {
+  getProjects(): void {
     this.quotesService.getProjects().subscribe(response => {
       this.projects = response;
     }, error => {
@@ -30,7 +30,7 @@ export class QuotesComponent implements OnInit {
     });
   }
 
-  getProjectList(search?: string) {
+  getProjectList(search?: string): void {
     this.quotesService.getProjectList(search).subscribe(response => {
       this.projectList = response;
     }, error => {
@@ -38,7 +38,7 @@ export class QuotesComponent implements OnInit {
     });
   }
 
-  getProject() {
+  getProject(): void {
     this.quotesService.getProject(this.projectIdSelected).subscribe(response => {
       this.selectedProject = response;
     }, error => {
@@ -46,18 +46,18 @@ export class QuotesComponent implements OnInit {
     });
   }
 
-  onProjectSelected(projectId: number) {
+  onProjectSelected(projectId: number): void {
     this.projectIdSelected = projectId;
     this.getProject();
   }
 
-  onProjectListSearch() {
+  onProjectListSearch(): void {
     this.projectSearch = this.searchTerm.nativeElement.value;
     this.getProjectList(this.projectSearch);
   }
 
-  onProjectListReset() {
-    this.searchTerm.nativeElement.value = "";
+  onProjectListReset(): void {
+    this.searchTerm.nativeElement.value = '';
     this.projectSearch = undefined;
     this.getProjectList(this.projectSearch);
   }
