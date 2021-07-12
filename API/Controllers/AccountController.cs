@@ -77,6 +77,13 @@ namespace API.Controllers
         }
 
 
+        [HttpGet("office/list")]
+        public async Task<ActionResult<IReadOnlyList<OfficeDto>>> GetOffices(int id)
+        {
+            var offices = await _officeRepo.GetOfficesAsync();
+            return Ok(_mapper.Map<IReadOnlyList<Office>, IReadOnlyList<OfficeDto>>(offices));
+        }
+
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)

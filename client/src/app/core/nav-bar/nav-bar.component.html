@@ -17,15 +17,32 @@
           <a class="nav-link" routerLink="/builder" routerLinkActive="active">Quote Builder</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/test-error" routerLinkActive="active">Error Test</a>
+          <a class="nav-link" routerLink="/account" routerLinkActive="active">Account</a>
         </li>
         <li class="nav-item">
           <p *ngIf="(builder$ | async) as builder">{{builder.features.length}}</p>
         </li>
       </ul>
-      <form class="form-inline my-2 my-md-0">
-        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-      </form>
+      <ng-container *ngIf="(currentUser$ | async) === null">
+        <a class="btn btn-primary btn-sm text-white mx-1" type="submit" routerLink="/account/login">Login</a>
+        <a class="btn btn-primary btn-sm text-white mx-1" type="submit" routerLink="/account/register">Sign Up</a>
+      </ng-container>
+      <ng-container *ngIf="(currentUser$ | async) !== null">
+        <div class="btn-group" dropdown>
+          <button id="button-animated" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                  aria-controls="dropdown-animated">
+                  {{(currentUser$ | async).email}} <span class="caret"></span>
+          </button>
+          <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="button-animated">
+            <li role="menuitem" (click)="logout()"><a class="dropdown-item">Logout</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Another action</a>
+            </li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Something else
+              here</a></li>
+          </ul>
+        </div>
+      </ng-container>
     </div>
   </div>
 </nav>

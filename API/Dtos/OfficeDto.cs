@@ -9,6 +9,7 @@ namespace API.Dtos
     public class OfficeDto
     {
         [Required]
+        public int Id { get; set; }
         public string Name { get; set; }
         public List<string> Users { get; set; }
         public string Street { get; set; }

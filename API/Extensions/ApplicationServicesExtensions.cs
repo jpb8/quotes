@@ -19,6 +19,7 @@ namespace API.Extensions
         {
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IFeatureRepository, FeatureRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IQuoteInProgRepository, QuoteInProgRepository>();
             services.AddScoped<IOfficeRepository, OfficeRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
